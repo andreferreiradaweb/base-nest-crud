@@ -1,0 +1,16 @@
+import { IsString, IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { IsUniqueEmail } from '../validation/unique-email.validation';
+export class CreateUserDTO {
+  @IsString()
+  @IsNotEmpty({ message: 'O nome não pode ser vazio' })
+  name: string;
+
+  @IsNotEmpty()
+  @IsUniqueEmail({ message: 'Já existe um usuário com este e-mail' })
+  @IsEmail(undefined, { message: 'O e-mail informado é inválido' })
+  email: string;
+
+  @IsNotEmpty()
+  @MinLength(6, { message: 'A senha precisa ter no mínimo 6 caracteres' })
+  password: string;
+}
